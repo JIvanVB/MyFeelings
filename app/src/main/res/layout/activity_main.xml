@@ -20,6 +20,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            android:contentDescription="@string/emocion_mas_grande"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,57 +43,60 @@
         android:paddingHorizontal="10dp"
         android:orientation="horizontal">
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/bvs"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_verysad"
-            />
-        <ImageButton
+            android:contentDescription="@string/muy_triste"
+            android:src="@drawable/ic_verysad" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/bs"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_sad"
-            />
-        <ImageButton
+            android:contentDescription="@string/triste"
+            android:src="@drawable/ic_sad" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/bn"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_neutral"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            />
-        <ImageButton
+            android:contentDescription="@string/neutral"
+            android:src="@drawable/ic_neutral" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/bh"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_happy"
-            />
-        <ImageButton
+            android:contentDescription="@string/feliz"
+            android:src="@drawable/ic_happy" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/bvh"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_veryhappy"
-            />
+            android:contentDescription="@string/muy_feliz"
+            android:src="@drawable/ic_veryhappy" />
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/guardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
         android:background="@drawable/round_button"
-        android:text="@string/guardar"/>
+        android:text="@string/guardar" />
 
     <GridLayout
         android:layout_width="match_parent"

@@ -7,4 +7,5 @@
     <string name="neutral">Neutral</string>
     <string name="triste">Triste</string>
     <string name="muy_triste">Muy triste</string>
+    <string name="emocion_mas_grande">emocion mas grande</string>
 </resources>

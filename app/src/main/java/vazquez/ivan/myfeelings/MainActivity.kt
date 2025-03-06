@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -102,34 +102,50 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun parseJson(jsonArray: JSONArray): ArrayList<Emociones> {
-        var lista = ArrayList<Emociones>()
+        val lista = ArrayList<Emociones>()
 
-        for (i in 0..jsonArray.length())
+        for (i in 0 until jsonArray.length()) {
             try {
+                val jsonObject = jsonArray.getJSONObject(i)
+                val colorName = jsonObject.getString("color")
+
+                // Obtener el ID del color desde colors.xml
+                val colorResId = resources.getIdentifier(colorName, "color", packageName)
+                if (colorResId == 0) {
+                    Log.e("ErrorColor", "Color no encontrado: $colorName")
+                    continue
+                }
+
+                // Obtener el color sin usar métodos obsoletos
+                val colorInt = ContextCompat.getColor(this, colorResId)
+
                 lista.add(
                     Emociones(
-                        jsonArray.getJSONObject(i).getString("nombre"),
-                        jsonArray.getJSONObject(i).getString("porcentage").toFloat(),
-                        jsonArray.getJSONObject(i).getString("color").toInt(),
-                        jsonArray.getJSONObject(i).getString("total").toFloat()
+                        jsonObject.getString("nombre"),
+                        jsonObject.getString("porcentage").toFloat(),
+                        colorInt,  // Ahora es un color real, no solo el ID
+                        jsonObject.getString("total").toFloat()
                     )
                 )
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
-
+        }
         return lista
     }
 
 
+
+
     fun actualizarGrafica() {
         val total = veryHappy + happy + neutral + verysad + sad
+        if (total == 0.0F) return
 
         var pVH = (veryHappy * 100 / total).toFloat()
         var pH = (happy * 100 / total).toFloat()
         var pN = (neutral * 100 / total).toFloat()
-        var pS: Float = (sad * 100 / total).toFloat()
-        var pVS: Float = (verysad * 100 / total).toFloat()
+        var pS= (sad * 100 / total).toFloat()
+        var pVS = (verysad * 100 / total).toFloat()
 
 
         Log.d("porcentajes", "very happy ${pVH}")
@@ -211,12 +227,12 @@ class MainActivity : AppCompatActivity() {
         var o: Int = 0
         for (i in lista) {
             Log.d("objetos", i.toString())
-            var j: JSONObject = JSONObject()
+            var j = JSONObject()
             j.put("nombre", i.nombre)
             j.put("porcentaje", i.porcentage)
             j.put("color", i.color)
             j.put("total", i.total)
-            jsonArray.put(0, j)
+            jsonArray.put(j)
             o++
         }
         jsonFile?.saveData(this, jsonArray.toString())
